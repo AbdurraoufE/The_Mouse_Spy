@@ -36,13 +36,17 @@ while 1:
                 screen_x = int(landmark.x * screen_width)
                 screen_y = int(landmark.y * screen_height)
                 pyautogui.moveTo(screen_x, screen_y)
-        hand = [all_marks[145], all_marks[159]] # get the index of top and bottom eye lid
-        for landmark in hand:
+        left_eye = [all_marks[145], all_marks[159]] # get the index of top and bottom eye lid
+        for landmark in left_eye:
             x = int(landmark.x * frame_weight)
             y = int(landmark.y * frame_height)
             cv2.circle(frame, (x, y), 3, (0, 255, 255))
+        if (left_eye[0].y - left_eye[1].y) < 0.004:     #Get the y position of the eye when closing and the second point of the eye
+            pyautogui.click() # Allow the mouse to click when eyes are winking
+            pyautogui.sleep(1) #Wait 1 second after clicking
 
     cv2.imshow("The Mouse Spy", frame) #Show what the camera is seeing
     cv2.waitKey(1) #Wait time for 1 second
 
 
+                        # Complete
